@@ -1,7 +1,12 @@
+
+import ToggleCard from '../../components/demos/ToggleCard';
 function ToggleDemo() {
   return (
     <div>
-      <p>ToggleDemo Demo - To be implemented</p>
+      <div style={{ padding: '20px' }}>
+      <h3>Toggleable Card</h3>
+      <ToggleCard />
+    </div>
     </div>
   );
 }
