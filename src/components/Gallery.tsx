@@ -12,7 +12,23 @@ function Gallery({ components }: GalleryProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<Category | 'All'>('All');
 
-  // TODO: Implement filtering logic here
+  
+  const filteredComponents: ComponentInfo[] = components.filter(component => {
+  if (selectedCategory === 'All') {
+    return true; // Show all items
+  }
+  return component.category === selectedCategory;
+});
+
+
+const finalFiltered = filteredComponents.filter(comp => {
+  const query = searchQuery.toLowerCase();
+  return (
+    comp.name.toLowerCase().includes(query) ||
+    comp.description.toLowerCase().includes(query)
+  );
+});
+
 
   return (
     <div className="gallery">
@@ -30,12 +46,12 @@ function Gallery({ components }: GalleryProps) {
 
       <div className="gallery-results">
         {/* TODO: Display result count */}
-        <p className="result-count">Showing {components.length} components</p>
+        <p className="result-count">Showing {finalFiltered.length} components</p>
       </div>
 
       <div className="gallery-grid">
         {/* TODO: Map and display filtered components */}
-        {components.map(comp => (
+        {finalFiltered.map(comp => (
           <ComponentCard key={comp.id} info={comp} />
         ))}
       </div>
